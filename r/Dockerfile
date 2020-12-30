@@ -1,0 +1,100 @@
+ARG MINICONDA_VERSION=latest
+
+FROM continuumio/miniconda3:${MINICONDA_VERSION}
+
+ARG R_VERSION=3.6.1
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgl1 \
+    libxt6 \
+    && rm -rf /var/lib/apt/lists/*
+RUN conda install -y \
+    -c r -c bioconda -c conda-forge \
+    r-base=${R_VERSION} \
+    bioconductor-impute \
+    bioconductor-mzr \
+    bioconductor-pcamethods \
+    bioconductor-rdisop \
+    r-car \
+    r-caret \
+    r-corrplot \
+    r-data.table \
+    r-dbi \
+    r-depmixs4 \
+    r-devtools \
+    r-diagrammer \
+    r-digest \
+    r-doparallel \
+    r-dplyr \
+    r-dt \
+    r-dtw \
+    r-dygraphs \
+    r-e1071 \
+    r-earth \
+    r-fdrtool \
+    r-fnn \
+    r-foreach \
+    r-forecast \
+    r-foreign \
+    r-fpp2 \
+    r-gbm \
+    r-genlasso \
+    r-ggmap \
+    r-ggplot2 \
+    r-ggvis \
+    r-glmnet \
+    r-haven \
+    r-htmlwidgets \
+    r-httr \
+    r-igraph \
+    r-iterators \
+    r-jsonlite \
+    r-keras \
+    r-leaflet \
+    r-lme4 \
+    r-locfdr \
+    r-lubridate \
+    r-maptools \
+    r-mass \
+    r-matrixstats \
+    r-mgcv \
+    r-mixomics \
+    r-multcomp \
+    r-mvtnorm \
+    r-networkd3 \
+    r-nlme \
+    r-odbc \
+    r-openxlsx \
+    r-psych \
+    r-quantmod \
+    r-r2html \
+    r-randomforest \
+    r-readxl \
+    r-rgl \
+    r-rmysql \
+    r-rocr \
+    r-roxygen2 \
+    r-rpostgresql \
+    r-rsqlite \
+    r-shiny \
+    r-snow \
+    r-sp \
+    r-splines2 \
+    r-stringr \
+    r-survival \
+    r-testthat \
+    r-tidymodels \
+    r-tidyr \
+    r-tidyverse \
+    r-tseries \
+    r-vars \
+    r-vcd \
+    r-wgcna \
+    r-xlconnect \
+    r-xlsx \
+    r-xml \
+    r-xtable \
+    r-xts \
+    r-zoo \
+    && conda clean -afy
+COPY requirements.R /tmp/requirements.R
+RUN Rscript /tmp/requirements.R
