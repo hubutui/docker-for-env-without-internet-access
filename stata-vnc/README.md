@@ -2,19 +2,14 @@
 要构建此镜像，请运行命令：
 
 ```bash
-docker build -t stata-debian-xfce-vnc . --progress plain \
-    --build-arg NO_VNC_VERSION=1.2.0 \
-    --build-arg WEBSOCKIFY_VERSION=0.9.0 \
-    --build-arg TIGERVNC_VERSION=1.9.0
+docker build -t stata-debian-xfce-vnc .
 ```
-
-可根据需要指定 [noVNC](https://github.com/novnc/noVNC)，[Websockify](https://github.com/novnc/websockify) 和 [TigerVNC](https://tigervnc.org/) 的版本．
 
 启动镜像，并挂载目录：
 
 ```bash
-docker run -d -p \
-    5901:5901 -p 6901:6901 \
+docker run -d \
+    -p 5901:5901 -p 6901:6901 \
     --env VNC_PW=yourvncpasswd \
     --user $(id -u):$(id -g) \
     --name $(whoami)-desktop \
