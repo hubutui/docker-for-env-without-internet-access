@@ -75,8 +75,9 @@ Docker 的命令很多，常用的主要有：
    3. `--gpus`：指定使用的 GPU，如 `--gpus 1` 使用第 1 块 GPU，使用多块 GPU 用逗号分隔，如 `--gpus 0,1`，使用全部 GPU 可以直接指定 `--gpus all`．
    4. `--shm-size`：指定 `/dev/shm` 的大小，如 `--shm-size 16G` 等．服务器上已经修改默认值为物理内存的一半，一般足够使用，但有需要的仍可以指定．
    5. `-v {宿主机路径}:{容器路径}`：挂载宿主机的某个目录到容器内的某个目录下，以便进行数据的读写等等．注意，这里的路径要写绝对路径．
-   6. `--rm`：容器停止或者退出后自动删除该容器．
-   7. 完整的例子：`docker run --gpus all -it -v /home/tom:/workdir/tom --shm-size 16G --rm --name mycontainer pytorch/pytorch:1.6.0-cuda10.1-cudnn7-devel`．
+   6. `-p {宿主机端口}:{容器端口}`：将容器中的端口映射到宿主机上．此时可以在宿主机上访问 `127.0.0.1:宿主机端口` 相当于访问到容器里对应容器端口的服务．注意，宿主机的防火墙需要开放宿主机端口才能从其他机器访问 `宿主机IP:宿主机端口`，否则需要使用 SSH 隧道访问，可以参考[这里](https://blog.mobatek.net/post/ssh-tunnels-and-port-forwarding/)设置 SSH 隧道．
+   7. `--rm`：容器停止或者退出后自动删除该容器．
+   8. 完整的例子：`docker run --gpus all -it -v /home/tom:/workdir/tom --shm-size 16G --rm --name mycontainer -v 9090:8080 pytorch/pytorch:1.6.0-cuda10.1-cudnn7-devel`．
 4. `docker start` 启动一个已经停止的容器．
 5. `docker stop` 停止正在运行的容器．
 6. `docker attach` 连接到挂起的容器．
