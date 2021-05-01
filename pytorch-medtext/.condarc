@@ -1,0 +1,9 @@
+channels:
+  - defaults
+show_channel_urls: true
+default_channels:
+  - https://mirrors.sustech.edu.cn/anaconda/pkgs/main
+  - https://mirrors.sustech.edu.cn/anaconda/pkgs/free
+custom_channels:
+  conda-forge: https://mirrors.sustech.edu.cn/anaconda/cloud
+
