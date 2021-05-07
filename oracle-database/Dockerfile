@@ -15,9 +15,9 @@ RUN microdnf install \
     parallel \
     python38-pip \
     telnet \
-    && pip3 install --no-cache-dir -i ${PYPI_URL} \
-    cx_oracle \
-    modin \
-    ray \
-    sqlalchemy \
     && microdnf clean all
+RUN pip3 install --no-cache-dir -i ${PYPI_URL} \
+    cx_oracle \
+    modin[ray] \
+    pymysql \
+    sqlalchemy
