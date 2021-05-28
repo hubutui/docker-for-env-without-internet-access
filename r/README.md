@@ -1,4 +1,4 @@
-这个例子构建了一个 R 语言环境的镜像．它用的是 Miniconda3 作为基础镜像．如果以此为基础定制自己的镜像，我们建议首先使用 `conda` 命令从 `r`，`conda-forge` 和 `bioconda` 等 channel 安装所需的 R 语言包，其次再考虑使用 R 语言的 `install.packages` 函数从 CRAN 安装 `conda` 不提供的包．使用 `install.packages` 函数来安装 R 语言包的方法请参考本项目中的另外一个[例子](../r-base)．
+这个例子构建了一个 R 语言环境的镜像．它用的是 Miniconda3 作为基础镜像．如果以此为基础定制自己的镜像，我们建议首先使用 `conda` 命令从 `r`，`conda-forge` 和 `bioconda` 等 channel 安装所需的 R 语言包，其次再考虑使用 R 语言的 `install.packages` 函数从 CRAN 安装其他包，以及使用 `devtools::install_github` 从 Github 安装包．使用 `install.packages` 函数来安装 R 语言包的方法请参考本项目中的另外一个[例子](../r-base)．
 
 要构建此镜像，请运行：
 
