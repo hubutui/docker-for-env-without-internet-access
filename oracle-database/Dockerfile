@@ -17,7 +17,9 @@ RUN microdnf install \
     telnet \
     && microdnf clean all
 RUN pip3 install --no-cache-dir -i ${PYPI_URL} \
+    cryptography \
     cx_oracle \
     modin[ray] \
     pymysql \
+    sqlacodegen \
     sqlalchemy
