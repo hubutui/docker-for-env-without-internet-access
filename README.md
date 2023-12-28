@@ -20,7 +20,7 @@ Docker 是一个开源的应用容器引擎，让开发者可以打包他们的�
 ## 构建 Docker 镜像的环境
 
 构建 Docker 镜像，我们首先需要一个可以运行 Docker 的环境．构建 Docker 镜像的机器不需要有显卡和显卡驱动．本地 Docker 的安装，请参考 Docker 的官方手册．
-**注意：**GPU 服务器上安装的 NVIDIA 驱动版本为 `450.80.23`，最高可以支持到 CUDA 11.0．因此构建 Docker 镜像时，请注意 CUDA 版本不大于 11.0．
+**注意：**我们需要检查 GPU 服务器上安装的 NVIDIA 驱动版本，`nvidia-smi` 输出的右上角显示 `CUDA Version: 12.3` 表示此版本的驱动最高可以支持到 cuda 12.3．
 
 ## Dockerfile
 
@@ -36,6 +36,8 @@ Docker 是一个开源的应用容器引擎，让开发者可以打包他们的�
 * [NVIDIA cuda 官方镜像](https://hub.docker.com/r/nvidia/cuda)：不使用 pytorch 也不用 tensorflow，但是需要用到 CUDA 的用户可以选择此镜像．其中，标签带 `devel` 的版本提供完整的 CUDA，包括编译器 NVCC，适合需要编译 CUDA 代码的用户；不需要编译 CUDA 代码的用户可以使用 `runtime` 版本，镜像更小．进阶用户可以使用多阶段构建，即用 devel 镜像编译，然后把编译结果复制到 runtime 镜像，可大大减小镜像．
 * [Minconda3 官方镜像](https://hub.docker.com/r/continuumio/miniconda3)：适合使用 python 但是不需要用 CUDA 的用户，同样适合 R 语言用户．此镜像只包含基础的 `conda` 命令，方便用户定制 conda 环境，不含 CUDA．
 * [r-base 镜像](https://hub.docker.com/_/r-base)：Docker 官方提供的 R 语言镜像，供 R 语言用户使用．此镜像不含 CUDA．
+* [NVIDIA NGC CUDA 镜像](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/cuda)：此镜像有提供 cuda 10 等较老版本，而 Dockerhub 上的只有较新的版本．此外，NVIDIA NGC 还有其他可以使用的镜像可以考虑使用，但是需要注意，他们提供的镜像可能尺寸较大．
+* [micromamba 镜像](https://hub.docker.com/r/mambaorg/micromamba)：这个是 miniconda 的一个替代，直接使用 micromamba 替代 conda 命令，在解决依赖的时候速度更快．
 
 ## Dockerfile 例子
 
