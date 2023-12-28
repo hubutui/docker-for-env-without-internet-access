@@ -30,14 +30,14 @@ Docker 是一个开源的应用容器引擎，让开发者可以打包他们的�
 
 我们建议使用一些可靠的上游镜像作为基础镜像来构建我们自己的镜像：
 
-* [pytorch 官方镜像](https://hub.docker.com/r/pytorch/pytorch)：适合使用 pytorch 开发的用户，需要编译 CUDA 扩展的要用标签以 `devel` 结尾的版本，不需要的可以直接用 `runtime` 版本，镜像更小．
-* NVIDIA 提供的 [pytorch 镜像](https://ngc.nvidia.com/catalog/containers/nvidia:pytorch)，这个镜像额外包含了 [NVIDIA apex](https://github.com/NVIDIA/apex) 和 [NVIDIA DALI](https://github.com/NVIDIA/DALI)
-* [tensorflow 官方镜像](https://hub.docker.com/r/tensorflow/tensorflow/)：适合使用 tensorflow 开发的用户，注意选择标签中带 `gpu` 的版本才是支持 GPU 的．
-* [NVIDIA cuda 官方镜像](https://hub.docker.com/r/nvidia/cuda)：不使用 pytorch 也不用 tensorflow，但是需要用到 CUDA 的用户可以选择此镜像．其中，标签带 `devel` 的版本提供完整的 CUDA，包括编译器 NVCC，适合需要编译 CUDA 代码的用户；不需要编译 CUDA 代码的用户可以使用 `runtime` 版本，镜像更小．进阶用户可以使用多阶段构建，即用 devel 镜像编译，然后把编译结果复制到 runtime 镜像，可大大减小镜像．
-* [Minconda3 官方镜像](https://hub.docker.com/r/continuumio/miniconda3)：适合使用 python 但是不需要用 CUDA 的用户，同样适合 R 语言用户．此镜像只包含基础的 `conda` 命令，方便用户定制 conda 环境，不含 CUDA．
-* [r-base 镜像](https://hub.docker.com/_/r-base)：Docker 官方提供的 R 语言镜像，供 R 语言用户使用．此镜像不含 CUDA．
-* [NVIDIA NGC CUDA 镜像](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/cuda)：此镜像有提供 cuda 10 等较老版本，而 Dockerhub 上的只有较新的版本．此外，NVIDIA NGC 还有其他可以使用的镜像可以考虑使用，但是需要注意，他们提供的镜像可能尺寸较大．
-* [micromamba 镜像](https://hub.docker.com/r/mambaorg/micromamba)：这个是 miniconda 的一个替代，直接使用 micromamba 替代 conda 命令，在解决依赖的时候速度更快．
+- [pytorch 官方镜像](https://hub.docker.com/r/pytorch/pytorch)：适合使用 pytorch 开发的用户，需要编译 CUDA 扩展的要用标签以 `devel` 结尾的版本，不需要的可以直接用 `runtime` 版本，镜像更小．
+- NVIDIA 提供的 [pytorch 镜像](https://ngc.nvidia.com/catalog/containers/nvidia:pytorch)，这个镜像额外包含了 [NVIDIA apex](https://github.com/NVIDIA/apex) 和 [NVIDIA DALI](https://github.com/NVIDIA/DALI)
+- [tensorflow 官方镜像](https://hub.docker.com/r/tensorflow/tensorflow/)：适合使用 tensorflow 开发的用户，注意选择标签中带 `gpu` 的版本才是支持 GPU 的．
+- [NVIDIA cuda 官方镜像](https://hub.docker.com/r/nvidia/cuda)：不使用 pytorch 也不用 tensorflow，但是需要用到 CUDA 的用户可以选择此镜像．其中，标签带 `devel` 的版本提供完整的 CUDA，包括编译器 NVCC，适合需要编译 CUDA 代码的用户；不需要编译 CUDA 代码的用户可以使用 `runtime` 版本，镜像更小．进阶用户可以使用多阶段构建，即用 devel 镜像编译，然后把编译结果复制到 runtime 镜像，可大大减小镜像．
+- [Minconda3 官方镜像](https://hub.docker.com/r/continuumio/miniconda3)：适合使用 python 但是不需要用 CUDA 的用户，同样适合 R 语言用户．此镜像只包含基础的 `conda` 命令，方便用户定制 conda 环境，不含 CUDA．
+- [r-base 镜像](https://hub.docker.com/_/r-base)：Docker 官方提供的 R 语言镜像，供 R 语言用户使用．此镜像不含 CUDA．
+- [NVIDIA NGC CUDA 镜像](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/cuda)：此镜像有提供 cuda 10 等较老版本，而 Dockerhub 上的只有较新的版本．此外，NVIDIA NGC 还有其他可以使用的镜像可以考虑使用，但是需要注意，他们提供的镜像可能尺寸较大．
+- [micromamba 镜像](https://hub.docker.com/r/mambaorg/micromamba)：这个是 miniconda 的一个替代，直接使用 micromamba 替代 conda 命令，在解决依赖的时候速度更快．
 
 ## Dockerfile 例子
 
@@ -83,13 +83,13 @@ Docker 的命令很多，常用的主要有：
 4. `docker start` 启动一个已经停止的容器．
 5. `docker stop` 停止正在运行的容器．
 6. `docker attach` 连接到挂起的容器．
-7. `docker exec -it {容器名/容器 ID} bash`  进入正在运行的容器．
+7. `docker exec -it {容器名/容器 ID} bash` 进入正在运行的容器．
 8. `docker build` 从 `Dockerfile` 构建镜像，常用的选项：
    1. `-t`：指定标签名称．
    2. `--build-arg`：设定 `Dockerfile` 中的 `ARG` 的值，使用 `key=value` 的形式，多个 `ARG` 写成 `--build-arg key1=value1 --build-arg key2=value2` 的形式．
    3. `--no-cache`：不使用缓存的镜像．
    4. `--pull`：构建时拉取最新的镜像．
-9. `docker save <image name> -o myimage.tar`  导出镜像，可以通过管道压缩一下，`docker save <image name> | gzip > myimage.tar.gz`．
+9. `docker save <image name> -o myimage.tar` 导出镜像，可以通过管道压缩一下，`docker save <image name> | gzip > myimage.tar.gz`．
 10. `docker load -i myimagefile` 导入镜像．
 
 ## 注意事项
@@ -127,7 +127,6 @@ Docker 的命令很多，常用的主要有：
    | Geforce RTX 2060    | 7.5                | >= 10     |
    | Geforce RTX 2080 Ti | 7.5                | >= 10     |
    | NVIDIA A100         | 8.0                | >= 11     |
-
 
 ## 参考
 
